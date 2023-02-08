@@ -20,7 +20,7 @@ import java.io.OutputStream;
 
 import static helloworld.OrderRequestStreamHandler.*;
 
-public class CreateOrderHandler {
+public class CreateOrderHandler implements OrderRequestStreamHandler {
 
     @Inject
     ObjectMapper objectMapper;
@@ -40,7 +40,7 @@ public class CreateOrderHandler {
         try {
             event = objectMapper.readTree(input);
         } catch (JsonMappingException e) {
-            //writeInvalidJsonInStreamResponse(objectMapper, output, e.getMessage());
+            writeInvalidJsonInStreamResponse(objectMapper, output, e.getMessage());
             return;
         }
 
