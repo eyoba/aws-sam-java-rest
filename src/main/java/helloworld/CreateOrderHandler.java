@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import config.DaggerOrderComponent;
 import config.OrderComponent;
 import dao.OrderDao;
 import exception.CouldNotCreateOrderException;
@@ -26,10 +27,10 @@ public class CreateOrderHandler implements OrderRequestStreamHandler {
     ObjectMapper objectMapper;
     @Inject
     OrderDao orderDao;
-    private final OrderComponent orderComponent = null;
+    private final OrderComponent orderComponent;
 
     public CreateOrderHandler() {
-        //orderComponent = DaggerOrderComponent.builder().build();
+        orderComponent = DaggerOrderComponent.builder().build();
         orderComponent.inject(this);
     }
 
@@ -49,7 +50,7 @@ public class CreateOrderHandler implements OrderRequestStreamHandler {
             return;
         }
         JsonNode createOrderRequestBody = event.findValue("body");
-       /* if (createOrderRequestBody == null) {
+        if (createOrderRequestBody == null) {
             objectMapper.writeValue(output,
                     new GatewayResponse<>(
                             objectMapper.writeValueAsString(
@@ -57,7 +58,7 @@ public class CreateOrderHandler implements OrderRequestStreamHandler {
                                             SC_BAD_REQUEST)),
                             APPLICATION_JSON, SC_BAD_REQUEST));
             return;
-        }*/
+        }
         final CreateOrderRequest request;
         try {
             request = objectMapper.treeToValue(

@@ -9,7 +9,11 @@ Description: >
 Globals:
   Function:
     Timeout: 20
-    MemorySize: 128
+    MemorySize: 512
+    Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+      Variables:
+        TABLE_NAME: !Ref OrdersTable
+        ENDPOINT_OVERRIDE: ""
 
 Resources:
   HelloWorldFunction:
@@ -51,7 +55,7 @@ Resources:
   OrdersTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: orders_table
+      TableName: orders_table2
       AttributeDefinitions:
         - AttributeName: orderId
           AttributeType: S
@@ -73,3 +77,7 @@ Outputs:
   HelloWorldFunctionIamRole:
     Description: "Implicit IAM Role created for Hello World function"
     Value: !GetAtt HelloWorldFunctionRole.Arn
+
+  CreateOrderFunction:
+    Description: "CreateOrder Lambda Function ARN"
+    Value: !GetAtt CreateOrderFunction.Arn
