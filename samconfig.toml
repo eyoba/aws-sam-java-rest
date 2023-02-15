@@ -2,9 +2,9 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "aws-sam-java-rest"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-mqp5aw9fmwft"
-s3_prefix = "aws-sam-java-rest"
+stack_name = "aws-sam-java-rest-fromsam"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-ejok1vnz6h49"
+s3_prefix = "aws-sam-java-rest-fromsam"
 region = "eu-north-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
